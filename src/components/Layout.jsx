@@ -11,6 +11,7 @@ function Layout() {
                     {/*<Link to={`/`}>Home</Link>*/}
                     <Link to={`/`}>Items List</Link>
                     <Link to={`/ItemCreate`}>Create an item</Link>
+                    <Link to={`/Game`}>Game</Link>
                 </nav>
             </header>
             <main>

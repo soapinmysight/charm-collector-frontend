@@ -8,7 +8,8 @@ import ItemsList from './pages/ItemsList.jsx';
 import ItemCreate from './pages/ItemCreate.jsx';
 import ItemDetail from "./pages/ItemDetail.jsx";
 import Layout from './components/Layout';
-import ItemEdit from "./pages/ItemEdit.jsx";
+import ItemEdit from "./pages/ItemEdit.jsx"
+import Game from "./pages/Game"
 
 const router = createBrowserRouter([
     {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             {
                 path: '/ItemCreate',
                 element: <ItemCreate/>,
+            },
+            {
+                path: '/Game',
+                element: <Game/>,
             },
             {
                 path: '/ItemDetail/:id',
