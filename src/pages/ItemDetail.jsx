@@ -49,7 +49,8 @@ function ItemDetail() {
         <div>
             {item ? (
                 <>
-                    <h1>{item.title}</h1>
+                    <h1>{item.score}</h1>
+                    <h2>{item.title}</h2>
                     <p>{item.body}</p>
                     <Link to={`/ItemEdit/${id}`}>Edit Item</Link>
 <button onClick={() => handleDelete(item.id)}>Delete</button>

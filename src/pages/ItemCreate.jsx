@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {useNavigate} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 
 function ItemCreate() {
+    const location = useLocation(); // Access the state passed via navigate
     const [formData, setFormData] = useState({
-        title: '',
-        body: '',
-        author: '',
-        id: '',
-        favourite: '',
+        score: location.state?.score || 0, // If no score, default to 0
+        title: "",
+        body: "",
+        author: "",
+        id: "",
+        favourite: "",
     });
     const apiUrl = 'http://145.24.222.134:8001/items'
 
@@ -53,11 +55,23 @@ function ItemCreate() {
 
     return (
         <form onSubmit={handleSubmit}>
+            <h1>Game Over</h1>
+            <div>
+                <label htmlFor="score">Score:</label>
+                <input
+                    type="text"
+                    id="score"
+                    name="score"
+                    value={formData.score}
+                    onChange={handleInputChange}
+                    readOnly
+                />
+            </div>
             <div>
                 <label htmlFor="title">Title:</label>
                 <input
                     type="text"
-                    id="title"
+                    id="tile"
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}

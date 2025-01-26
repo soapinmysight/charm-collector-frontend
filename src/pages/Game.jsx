@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import {useNavigate} from "react-router";
+import { useNavigate } from "react-router"; // Import useNavigate
 
 const Game = () => {
     const canvasRef = useRef(null);
@@ -13,6 +13,13 @@ const Game = () => {
     const boxHeight = 40;
     const charmRadius = 20;
     const gameOver = useRef(false); // Track game-over state
+    const missesRef = useRef(misses); // Ref to track misses synchronously
+    const navigate = useNavigate(); // Initialize navigate
+
+    // Sync missesRef with misses state
+    useEffect(() => {
+        missesRef.current = misses;
+    }, [misses]);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -67,13 +74,6 @@ const Game = () => {
             ctx.closePath();
         };
 
-        const resetGame = () => {
-            setScore(0);
-            setMisses(0);
-            beads.current = [];
-            gameOver.current = false; // Reset game-over flag
-        };
-
         const draw = () => {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -101,11 +101,10 @@ const Game = () => {
                     beads.current.splice(index, 1);
                 }
 
-                if (misses >= 20 && !gameOver.current) {
+                if (missesRef.current >= 10 && !gameOver.current) {
                     gameOver.current = true; // Set game-over flag
-                    alert("Game over! Try again.");
-                    resetGame();
                     clearInterval(gameInterval);
+                    navigate("/ItemCreate", { state: { score } }); // Redirect with score
                 }
             });
 
@@ -132,13 +131,7 @@ const Game = () => {
             canvas.removeEventListener("mousemove", handleMouseMove);
             clearInterval(interval);
         };
-    }, [misses]);
-
-    const startGame = () => {
-        if (!gameInterval) {
-            setGameInterval(setInterval(() => {}, 10));
-        }
-    };
+    }, [navigate, score]);
 
     return (
         <div style={{ textAlign: "center", marginTop: "2em" }}>
@@ -149,7 +142,6 @@ const Game = () => {
                 height="300"
                 style={{ background: "#ffeeed", display: "block", margin: "auto" }}
             ></canvas>
-            <button onClick={startGame}>Start Game</button>
             <p>
                 Score: <span>{score}</span> | Misses: <span>{misses}</span>
             </p>

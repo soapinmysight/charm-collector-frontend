@@ -58,7 +58,7 @@ function ItemsList() {
         <>
             <div style={{ width: '40vw'}}>
                 {currentItems.map(item => (
-                    <ItemCard key={item.id} id={item.id} title={item.title} body={item.body} />
+                    <ItemCard key={item.id} id={item.id} score={item.score} title={item.title} />
                 ))}
             </div>
             <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
