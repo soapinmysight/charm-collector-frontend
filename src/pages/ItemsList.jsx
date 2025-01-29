@@ -6,7 +6,7 @@ function ItemsList() {
     const apiUrl = 'http://145.24.222.134:8001/items'
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPerPage, setItemsPerPage] = useState(5);
+    const [itemsPerPage, setItemsPerPage] = useState(6);
 
 
     useEffect(() => {
@@ -56,25 +56,24 @@ function ItemsList() {
     };
     return (
         <>
-            <div style={{ width: '40vw'}}>
+            <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
                 {currentItems.map(item => (
                     <ItemCard key={item.id} id={item.id} score={item.score} title={item.title} />
                 ))}
             </div>
-            <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'center' }}>
+            <div className="mt-6 flex justify-center items-center space-x-4">
                 <button
                     onClick={handlePrevious}
                     disabled={currentPage === 1}
-                    style={{ marginRight: '10px' }}
+                    className="bg-gray-700 px-4 py-2 rounded-lg shadow-md hover:bg-gray-600 disabled:opacity-50"
                 >
                     Previous
                 </button>
-                <span>Page {currentPage} of {totalPages}</span>
+                <span className="text-white">Page {currentPage} of {totalPages}</span>
                 <button
                     onClick={handleNext}
                     disabled={currentPage === totalPages}
-                    style={{ marginLeft: '10px' }}
-                >
+                    className="bg-gray-700 px-4 py-2 rounded-lg shadow-md hover:bg-gray-600 disabled:opacity-50"                >
                     Next
                 </button>
             </div>

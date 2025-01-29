@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router';
 
 
-import './App.css'
+// import './App.css'
 
 import ItemsList from './pages/ItemsList.jsx';
 import ItemCreate from './pages/ItemCreate.jsx';
@@ -40,12 +40,9 @@ const router = createBrowserRouter([
     }
 ]);
 function App() {
-
-
   return (
     <>
         <RouterProvider router={router}/>
-
     </>
   )
 }

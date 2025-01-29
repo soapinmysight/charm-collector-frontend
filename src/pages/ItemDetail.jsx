@@ -46,14 +46,14 @@ function ItemDetail() {
     }};
 
     return (
-        <div>
-            {item ? (
+        <div className="bg-gray-800 text-white p-6 rounded-xl shadow-lg w-full max-w-lg mx-auto text-center">            {item ? (
                 <>
-                    <h1>{item.score}</h1>
-                    <h2>{item.title}</h2>
-                    <p>{item.body}</p>
-                    <Link to={`/ItemEdit/${id}`}>Edit Item</Link>
-<button onClick={() => handleDelete(item.id)}>Delete</button>
+                    <h1 className="text-3xl text-pink-400 font-bold">{item.score}</h1>
+                    <h2 className="text-2xl text-gray-300">{item.title}</h2>
+                    <p className="text-gray-400">{item.author}</p>
+                    <p className="text-gray-400">{item.body}</p>
+                    <Link to={`/ItemEdit/${id}`}className="text-pink-400 hover:underline">Edit Item</Link>
+<button onClick={() => handleDelete(item.id)}className="bg-pink-500 px-4 py-2 ml-4 rounded-lg shadow-md hover:bg-pink-600">Delete</button>
                 </>
             ) : (
                 <p>Loading item...</p>
