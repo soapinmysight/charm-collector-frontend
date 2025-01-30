@@ -4,11 +4,11 @@ import {createBrowserRouter, RouterProvider} from 'react-router';
 
 // import './App.css'
 
-import ItemsList from './pages/ItemsList.jsx';
-import ItemCreate from './pages/ItemCreate.jsx';
-import ItemDetail from "./pages/ItemDetail.jsx";
+import ScoreEntriesList from './pages/ScoreEntriesList.jsx';
+import ScoreEntryCreate from './pages/ScoreEntryCreate.jsx';
+import ScoreEntryDetail from "./pages/ScoreEntryDetail.jsx";
 import Layout from './components/Layout';
-import ItemEdit from "./pages/ItemEdit.jsx"
+import ScoreEntryEdit from "./pages/ScoreEntryEdit.jsx"
 import Game from "./pages/Game"
 
 const router = createBrowserRouter([
@@ -17,23 +17,23 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <ItemsList/>,
+                element: <ScoreEntriesList/>,
             },
             {
-                path: '/ItemCreate',
-                element: <ItemCreate/>,
+                path: '/ScoreEntryCreate',
+                element: <ScoreEntryCreate/>,
             },
             {
                 path: '/Game',
                 element: <Game/>,
             },
             {
-                path: '/ItemDetail/:id',
-                element: <ItemDetail/>,
+                path: '/ScoreEntryDetail/:id',
+                element: <ScoreEntryDetail/>,
             },
             {
-                path: '/ItemEdit/:id',
-                element: <ItemEdit/>,
+                path: '/ScoreEntryEdit/:id',
+                element: <ScoreEntryEdit/>,
             },
 
         ]

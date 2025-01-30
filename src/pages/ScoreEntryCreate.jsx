@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate} from "react-router";
 
-function ItemCreate() {
+function ScoreEntryCreate() {
     const location = useLocation(); // Access the state passed via navigate
     const [formData, setFormData] = useState({
         score: location.state?.score || 0, // If no score, default to 0
         title: "",
-        body: "",
+        description: "",
         author: "",
         id: "",
         // favourite: "",
     });
-    const apiUrl = 'http://145.24.222.134:8001/items'
+    const apiUrl = 'http://145.24.222.134:8001/score_entries'
 
     const navigate= useNavigate();
 
@@ -31,24 +31,54 @@ function ItemCreate() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        async function saveItems() {
+        // async function saveEntries() {
+        //     try {
+        //         const response = await fetch(apiUrl,{
+        //             method: 'POST',
+        //             headers:{
+        //                 'Accept':'application/json',
+        //                 'Content-type':'application/json'
+        //             },
+        //             body: JSON.stringify(formData)
+        //         });
+        //         const data = await response.json();
+        //         console.log('data after submit', data)
+        //         navigate('/');
+        //     } catch (error) {
+        //         console.error('Fout bij het ophalen van de score entries:', error);
+        //     }
+        // }
+
+        const saveEntries = async () => {
             try {
-                const response = await fetch(apiUrl,{
+                const response = await fetch(apiUrl, {
                     method: 'POST',
-                    headers:{
-                        'Accept':'application/json',
-                        'Content-type':'application/json'
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(formData)
+                    body: JSON.stringify(formData),
                 });
-                const data = await response.json();
-                console.log('data after submit', data)
+
+                // Check if the response status is OK and has content
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const text = await response.text(); // Get the raw response text first
+                console.log('Raw response:', text);
+
+                // If the response text is non-empty, parse it as JSON
+                const data = text ? JSON.parse(text) : {};
+                console.log('Data after submit:', data);
+
                 navigate('/');
             } catch (error) {
-                console.error('Fout bij het ophalen van de items:', error);
+                console.error('Fout bij het ophalen van de score entries:', error);
             }
-        }
-        saveItems()
+        };
+
+        saveEntries()
         console.log('Formulier verzonden:', formData);
     };
 
@@ -80,12 +110,12 @@ function ItemCreate() {
                 />
             </div>
             <div className="w-full mb-4">
-                <label htmlFor="body" className="block text-pink-400">Body:</label>
+                <label htmlFor="description" className="block text-pink-400">Description:</label>
                 <input
                     type="text"
-                    id="body"
-                    name="body"
-                    value={formData.body}
+                    id="description"
+                    name="description"
+                    value={formData.description}
                     onChange={handleInputChange}
                     className="w-full p-2 rounded bg-gray-700 text-white border border-pink-400"
                 />
@@ -117,4 +147,4 @@ function ItemCreate() {
     );
 }
 
-export default ItemCreate;
+export default ScoreEntryCreate;

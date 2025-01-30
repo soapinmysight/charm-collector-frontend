@@ -6,9 +6,9 @@ function Layout() {
             <header className="bg-gray-800 p-4 shadow-md">
                 <nav className="flex space-x-6 justify-center">
                     {/*<Link to={`/`}>Home</Link>*/}
-                    <Link to={`/`} className="text-pink-400 hover:text-pink-300">Items List</Link>
+                    <Link to={`/`} className="text-pink-400 hover:text-pink-300">Score Entries List</Link>
                     {/*<Link to={`/ItemCreate`} className="text-pink-400 hover:text-pink-300">Create an Item</Link>*/}
-                    <Link to={`/Game`} className="text-pink-400 hover:text-pink-300">Game</Link>
+                    <Link to={`/Game`} className="text-pink-400 hover:text-pink-300">Charm Collector Game</Link>
                 </nav>
             </header>
             <main className="p-6">
