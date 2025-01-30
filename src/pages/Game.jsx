@@ -104,7 +104,7 @@ const Game = () => {
                 if (missesRef.current >= 10 && !gameOver.current) {
                     gameOver.current = true; // Set game-over flag
                     clearInterval(gameInterval);
-                    navigate("/ItemCreate", { state: { score } }); // Redirect with score
+                    navigate("/ScoreEntryCreate", { state: { score } }); // Redirect with score
                 }
             });
 

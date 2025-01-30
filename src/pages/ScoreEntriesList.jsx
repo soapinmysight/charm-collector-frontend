@@ -9,6 +9,8 @@ function ScoreEntriesList() {
     const [entriesPerPage, setEntriesPerPage] = useState(6);
     const [minScore, setMinScore] = useState('');
     const [maxScore, setMaxScore] = useState('');
+    const [searchText, setSearchText] = useState('');
+
 
 
     useEffect(() => {
@@ -38,13 +40,21 @@ function ScoreEntriesList() {
         return <p>Score Entries laden...</p>;
     }
 
-    // filter the score entries based on min/max
+
+    // filter the score entries based on min/max score and search text
     const filteredEntries = scoreEntries.filter(entry => {
         const score = entry.score;
         const min = minScore !== '' ? parseFloat(minScore) : -Infinity;
         const max = maxScore !== '' ? parseFloat(maxScore) : Infinity;
-        return score >= min && score <= max;
+        const matchesScore = score >= min && score <= max;
+        const title = entry.title ? entry.title.toLowerCase() : '';
+        const description = entry.description ? entry.description.toLowerCase() : '';
+        const matchesSearch = searchText === '' ||
+            title.includes(searchText.toLowerCase()) ||
+            description.includes(searchText.toLowerCase());
+        return matchesScore && matchesSearch;
     });
+
 
     const totalPages = Math.ceil(filteredEntries.length / entriesPerPage);
     const startIndex = (currentPage - 1) * entriesPerPage;
@@ -68,6 +78,13 @@ function ScoreEntriesList() {
         <>
             <div className="flex justify-center space-x-4 mb-6">
                 <input
+                    type="text"
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    placeholder="Search Title or Body"
+                    className="p-2 border rounded text-gray-800"
+                />
+                <input
                     type="number"
                     value={minScore}
                     onChange={(e) => setMinScore(e.target.value)}
@@ -82,6 +99,7 @@ function ScoreEntriesList() {
                     className="p-2 border rounded text-gray-800"
                 />
             </div>
+
 
             <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
                 {currentEntries.map(scoreEntry => (
