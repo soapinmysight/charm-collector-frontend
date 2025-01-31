@@ -3,36 +3,45 @@ import ScoreEntryCard from '../components/ScoreEntryCard.jsx';
 
 function ScoreEntriesList() {
     const [scoreEntries, setScoreEntries] = useState(null);
+// stores score entries fetched from the API
     const apiUrl = 'http://145.24.222.134:8001/score_entries'
+// URL of the REST-ful API from opdracht 1 to fetch score entries
 
     const [currentPage, setCurrentPage] = useState(1);
+    // for pagination
     const [entriesPerPage, setEntriesPerPage] = useState(6);
+    // for how many entries to show per page
+
     const [minScore, setMinScore] = useState('');
+    // for minimum score filter value
     const [maxScore, setMaxScore] = useState('');
+    // for maximum score filter value
     const [searchText, setSearchText] = useState('');
+    // for text used to filter the title/description
 
 
-
+    // This useEffect hook runs when the component first renders
     useEffect(() => {
+        // Function to fetch the score entries from the API
         async function fetchScoreEntries() {
             try {
+                // Making a GET request to the API
                 const response = await fetch(apiUrl,{
                     method: 'GET',
                     headers:{
-                        'Accept':'application/json'
+                        'Accept':'application/json' // requesting JSON data
                     }
                 });
+                // Parsing the response data into JSON
                 const data = await response.json();
-                console.log('API response data:', data);
+                // Storing the fetched score entries in the state
                 setScoreEntries(data.scoreEntries);
-                console.log('fetched scoreEntries',scoreEntries)
             } catch (error) {
                 console.error('Fout bij het ophalen van de scoreEntries:', error);
             }
         }
-
         fetchScoreEntries();
-    }, []); // Lege array zorgt ervoor dat useEffect alleen bij de eerste render wordt uitgevoerd.
+    }, []);
     console.log('scoreEntries', scoreEntries)
 
     // if scoreEntries didnt load (yet), display following message instead
@@ -41,17 +50,25 @@ function ScoreEntriesList() {
     }
 
 
-    // filter the score entries based on min/max score and search text
+    // filter through scoreEntries (entry by entry)
     const filteredEntries = scoreEntries.filter(entry => {
-        const score = entry.score;
+        const entryScore = entry.score;
+        // if minScore is empty, set to -Infinity
         const min = minScore !== '' ? parseFloat(minScore) : -Infinity;
+        // if maxScore is empty, set to Infinity
         const max = maxScore !== '' ? parseFloat(maxScore) : Infinity;
-        const matchesScore = score >= min && score <= max;
+        // check if score higher or the same as min and lower or the same as max
+        const matchesScore = entryScore >= min && entryScore <= max;
+
+        // convert title & desctiption to lowercase for case-insensitive search
         const title = entry.title ? entry.title.toLowerCase() : '';
         const description = entry.description ? entry.description.toLowerCase() : '';
+        //entry is added to "matchesSearch" if searchBar is empty (so in that case all will be added)
+        //OR searchText is in entry's title OR description
         const matchesSearch = searchText === '' ||
-            title.includes(searchText.toLowerCase()) ||
-            description.includes(searchText.toLowerCase());
+            title.includes(searchText) ||
+            description.includes(searchText);
+        //return the entries that match score and search to filteredEnties
         return matchesScore && matchesSearch;
     });
 
@@ -60,8 +77,6 @@ function ScoreEntriesList() {
     const startIndex = (currentPage - 1) * entriesPerPage;
     const endIndex = startIndex + entriesPerPage;
     const currentEntries = filteredEntries.slice(startIndex, endIndex);
-
-
 
     const handlePrevious = () => {
         if (currentPage > 1) {
@@ -81,7 +96,7 @@ function ScoreEntriesList() {
                     type="text"
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
-                    placeholder="Search Title or Body"
+                    placeholder="Search Title or Description"
                     className="p-2 border rounded text-gray-800"
                 />
                 <input
@@ -103,9 +118,14 @@ function ScoreEntriesList() {
 
             <div className="w-full max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
                 {currentEntries.map(scoreEntry => (
-                    <ScoreEntryCard key={scoreEntry.id} id={scoreEntry.id} score={scoreEntry.score} title={scoreEntry.title} />
+                    <ScoreEntryCard
+                        key={scoreEntry.id}
+                        id={scoreEntry.id}
+                        score={scoreEntry.score}
+                        title={scoreEntry.title} />
                 ))}
             </div>
+
             <div className="mt-6 flex justify-center items-center space-x-4">
                 <button
                     onClick={handlePrevious}

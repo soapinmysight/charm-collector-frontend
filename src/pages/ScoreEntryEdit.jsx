@@ -9,7 +9,6 @@ function ScoreEntryEdit() {
         description: '',
         author: '',
         id: '',
-        // favourite: '',
     });
     useEffect(() => {
         async function fetchEntry() {
@@ -26,7 +25,6 @@ function ScoreEntryEdit() {
                 console.error('Error fetching scoreEntry:', error);
             }
         }
-
         fetchEntry();
     }, [id]);
 
@@ -104,17 +102,7 @@ function ScoreEntryEdit() {
                         className="w-full p-2 rounded bg-gray-700 text-white border border-pink-400"
                     />
                 </div>
-                {/*<div className="w-full mb-4">*/}
-                {/*    <label htmlFor="favourite">favourite:</label>*/}
-                {/*    <input*/}
-                {/*        type="text"*/}
-                {/*        id="favourite"*/}
-                {/*        name="favourite"*/}
-                {/*        value={formData.favourite}*/}
-                {/*        onChange={handleInputChange}*/}
-                {/*        className="w-full p-2 rounded bg-gray-700 text-white border border-pink-400"*/}
-                {/*    />*/}
-                {/*</div>*/}
+
                 <button type="submit" className="bg-pink-500 px-4 py-2 rounded-lg shadow-md hover:bg-pink-600">Verzenden</button>
             </form>
         </>

@@ -54,7 +54,7 @@ function ScoreEntryDetail() {
                     <p className="text-gray-400">{scoreEntry.author}</p>
                     <p className="text-gray-400">{scoreEntry.description}</p>
                     <Link to={`/scoreEntryEdit/${id}`}className="text-pink-400 hover:underline">Edit scoreEntry</Link>
-<button onClick={() => handleDelete(scoreEntry.id)}className="bg-pink-500 px-4 py-2 ml-4 rounded-lg shadow-md hover:bg-pink-600">Delete</button>
+                    <button onClick={() => handleDelete(scoreEntry.id)}className="bg-pink-500 px-4 py-2 ml-4 rounded-lg shadow-md hover:bg-pink-600">Delete</button>
                 </>
             ) : (
                 <p>Loading Score Entry...</p>

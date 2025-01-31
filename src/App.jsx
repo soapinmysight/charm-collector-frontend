@@ -1,9 +1,4 @@
-import { useState } from 'react'
 import {createBrowserRouter, RouterProvider} from 'react-router';
-
-
-// import './App.css'
-
 import ScoreEntriesList from './pages/ScoreEntriesList.jsx';
 import ScoreEntryCreate from './pages/ScoreEntryCreate.jsx';
 import ScoreEntryDetail from "./pages/ScoreEntryDetail.jsx";

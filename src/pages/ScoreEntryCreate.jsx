@@ -9,7 +9,6 @@ function ScoreEntryCreate() {
         description: "",
         author: "",
         id: "",
-        // favourite: "",
     });
     const apiUrl = 'http://145.24.222.134:8001/score_entries'
 
@@ -22,35 +21,19 @@ function ScoreEntryCreate() {
 
     //Generieke handler voor het bijwerken van de state formData
     const handleInputChange = (event) => {
+        // take the 'name' and 'value' from the input field that triggered the change
         const {name, value} = event.target;
-        setFormData({
-            ...formData,
-            [name]: value,
+        setFormData({ //set formData with:
+            ...formData,// all previous form data (from other fields)
+            [name]: value,// update the specific field (with given name) with the new value
         });
     };
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // async function saveEntries() {
-        //     try {
-        //         const response = await fetch(apiUrl,{
-        //             method: 'POST',
-        //             headers:{
-        //                 'Accept':'application/json',
-        //                 'Content-type':'application/json'
-        //             },
-        //             body: JSON.stringify(formData)
-        //         });
-        //         const data = await response.json();
-        //         console.log('data after submit', data)
-        //         navigate('/');
-        //     } catch (error) {
-        //         console.error('Fout bij het ophalen van de score entries:', error);
-        //     }
-        // }
-
         const saveEntries = async () => {
             try {
+                // Post request to server to update the score entries with the form data
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: {
@@ -65,14 +48,13 @@ function ScoreEntryCreate() {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
 
-                const text = await response.text(); // Get the raw response text first
+                const text = await response.text(); //get the raw response text first
                 console.log('Raw response:', text);
-
-                // If the response text is non-empty, parse it as JSON
+                //if the response text is not empty, parse it as JSON
                 const data = text ? JSON.parse(text) : {};
                 console.log('Data after submit:', data);
 
-                navigate('/');
+                navigate('/'); //navigate back to collection
             } catch (error) {
                 console.error('Fout bij het ophalen van de score entries:', error);
             }
@@ -131,17 +113,6 @@ function ScoreEntryCreate() {
                     className="w-full p-2 rounded bg-gray-700 text-white border border-pink-400"
                 />
             </div>
-            {/*<div className="w-full mb-4">*/}
-            {/*    <label htmlFor="favourite" className="block text-pink-400">favourite:</label>*/}
-            {/*    <input*/}
-            {/*        type="text"*/}
-            {/*        id="favourite"*/}
-            {/*        name="favourite"*/}
-            {/*        value={formData.favourite}*/}
-            {/*        onChange={handleInputChange}*/}
-            {/*        className="w-full p-2 rounded bg-gray-700 text-white border border-pink-400"*/}
-            {/*    />*/}
-            {/*</div>*/}
             <button type="submit"className="bg-pink-500 px-4 py-2 rounded-lg shadow-md hover:bg-pink-600">Verzenden</button>
         </form>
     );
