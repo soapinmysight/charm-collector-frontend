@@ -13,7 +13,7 @@ function ScoreEntryEdit() {
     useEffect(() => {
         async function fetchEntry() {
             try {
-                const response = await fetch(`http://145.24.222.134:8001/score_entries/${id}`, {
+                const response = await fetch(`http://145.24.222.134:8080/scoreEntries/${id}`, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json'
@@ -46,7 +46,7 @@ function ScoreEntryEdit() {
         event.preventDefault();
         async function saveEntries() {
             try {
-                const response = await fetch(`http://145.24.222.134:8001/score_entries/${id}`,{
+                const response = await fetch(`http://145.24.222.134:8080/scoreEntries/${id}`,{
                     method: 'PUT',
                     headers:{
                         'Accept':'application/json',

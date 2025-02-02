@@ -10,7 +10,7 @@ function ScoreEntryCreate() {
         author: "",
         id: "",
     });
-    const apiUrl = 'http://145.24.222.134:8001/score_entries'
+    const apiUrl = 'http://145.24.222.134:8080/scoreEntries'
 
     const navigate= useNavigate();
 

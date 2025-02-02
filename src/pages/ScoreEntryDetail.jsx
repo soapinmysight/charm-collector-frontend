@@ -9,7 +9,7 @@ function ScoreEntryDetail() {
     useEffect(() => {
         async function fetchEntry() {
             try {
-                const response = await fetch(`http://145.24.222.134:8001/score_entries/${id}`, {
+                const response = await fetch(`http://145.24.222.134:8080/scoreEntries/${id}`, {
                     method: 'GET',
                     headers: {
                         'Accept': 'application/json'
@@ -27,7 +27,7 @@ function ScoreEntryDetail() {
 
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`http://145.24.222.134:8001/score_entries/${id}`, {
+            const response = await fetch(`http://145.24.222.134:8080/scoreEntries/${id}`, {
                 method: "DELETE",
                 headers: {
                     'Content-Type': 'application/json',

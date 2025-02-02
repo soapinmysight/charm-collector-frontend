@@ -4,7 +4,7 @@ import ScoreEntryCard from '../components/ScoreEntryCard.jsx';
 function ScoreEntriesList() {
     const [scoreEntries, setScoreEntries] = useState(null);
 // stores score entries fetched from the API
-    const apiUrl = 'http://145.24.222.134:8001/score_entries'
+    const apiUrl = 'http://145.24.222.134:8080/scoreEntries'
 // URL of the REST-ful API from opdracht 1 to fetch score entries
 
     const [currentPage, setCurrentPage] = useState(1);
@@ -35,7 +35,7 @@ function ScoreEntriesList() {
                 // Parsing the response data into JSON
                 const data = await response.json();
                 // Storing the fetched score entries in the state
-                setScoreEntries(data.scoreEntries);
+                setScoreEntries(data.items);
             } catch (error) {
                 console.error('Fout bij het ophalen van de scoreEntries:', error);
             }
